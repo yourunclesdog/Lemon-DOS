@@ -11,6 +11,7 @@ use core::panic::PanicInfo;
 pub extern "C" fn _start() -> ! {
     init();
     serial_print!("hello world");
+    x86_64::instructions::interrupts::int3();
     loop{}
 }
 

@@ -17,3 +17,7 @@ pub fn init_idt() {
 extern "x86-interrupt" fn breakpoint_hander(stack_frame: InterruptStackFrame) {
     serial_println!("Exception - Breakpoint\n{:#?}", stack_frame);
 }
+
+extern "x86-interrupt" fn doublefault_hander(stack_frame: InterruptStackFrame) {
+    serial_println!("Exception - Double Fault\n{:#?}", stack_frame);
+}
