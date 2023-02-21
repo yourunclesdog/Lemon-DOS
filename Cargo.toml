@@ -6,9 +6,13 @@ edition = "2021"
 [dependencies]
 x86_64 = "0.14.10"
 bootloader = "0.9.23"
+#used for serial output
 uart_16550 = "0.2.18"
+#spinlock
 spin = "0.9.5"
 
 [dependencies.lazy_static]
+#used for allocation of statics that require code to be executed at runtime for initialization
 version = "1.4.0"
+#depends on spin dependency in order to be used with no_std
 features = ["spin_no_std"]
