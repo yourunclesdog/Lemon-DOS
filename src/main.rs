@@ -10,17 +10,18 @@ mod interrupts;
 
 use core::panic::PanicInfo;
 use x86_64::instructions::hlt;
+use bootloader::{BootInfo, entry_point};
 
-//disable name mangling, as the os needs to start with a C _start
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
+entry_point!(kernel_main);
+
+fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     //initialise the os, for now only the idt
     init();
 
     //print "hello world" to serial terminal
     serial_println!("hello world");
-
+    
     //to trigger a breakpoint interrupt
     //x86_64::instructions::interrupts::int3();
 
@@ -28,6 +29,14 @@ pub extern "C" fn _start() -> ! {
     //unsafe {
     //    *(0xdeadbeef as *mut u64) = 42;
     //};
+
+    //playing around with writing to memory
+    //let foo = 0x0000_1100 as *mut u32;
+    //unsafe { 
+    //    *foo = 6920; 
+    //    *foo = *foo + 20;
+    //}
+    //serial_println!("{}", unsafe{*foo});
 
     //halt loop forever
     loop{

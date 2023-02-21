@@ -5,14 +5,13 @@ edition = "2021"
 
 [dependencies]
 x86_64 = "0.14.10"
-bootloader = "0.9.23"
+bootloader = { version = "0.9.23", features = ["map_physical_memory"]}
 #used for serial output
 uart_16550 = "0.2.18"
 #spinlock
 spin = "0.9.5"
+#used for allocation of statics that require code to be executed at runtime for init
+lazy_static = { version = "1.4.0", features = ["spin_no_std"]}
 
-[dependencies.lazy_static]
-#used for allocation of statics that require code to be executed at runtime for initialization
-version = "1.4.0"
-#depends on spin dependency in order to be used with no_std
-features = ["spin_no_std"]
+[package.metadata.bootloader]
+physical-memory-offset = "0x0000f00000000000"
